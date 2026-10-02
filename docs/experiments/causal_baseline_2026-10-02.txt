@@ -1,0 +1,7 @@
+Graph built with 3 nodes and 2 edges.
+Analyzing causal attack chains...
+
+--- Attack Chain 1 ---
+ -> 2004-09-02T16:51:58.358695+0000 | Command and Control (SURICATA ICMPv4 unknown type) | 24.6.125.19 to 224.0.0.2
+ -> 2004-09-02T16:52:01.362947+0000 | Command and Control (SURICATA ICMPv4 unknown type) | 24.6.125.19 to 224.0.0.2
+ -> 2004-09-02T16:52:04.367221+0000 | Command and Control (SURICATA ICMPv4 unknown type) | 24.6.125.19 to 224.0.0.2

@@ -1,0 +1,144 @@
+[
+  {
+    "scenario_id": "SCENARIO-1",
+    "name": "Reconnaissance to Exfiltration",
+    "steps": [
+      {
+        "phase": "Reconnaissance",
+        "mitre_id": "T1046",
+        "technique": "Network Service Scanning",
+        "expected_indicators": {
+          "zeek": {
+            "service": ["http", "dns", "ssl"],
+            "conn_state": ["REJ", "RSTOS0"]
+          },
+          "suricata": {
+            "signatures": ["ET SCAN", "NMAP"]
+          }
+        }
+      },
+      {
+        "phase": "Privilege Escalation",
+        "mitre_id": "T1068",
+        "technique": "Exploitation for Privilege Escalation",
+        "expected_indicators": {
+          "zeek": {
+            "service": ["smb", "dce_rpc"]
+          },
+          "suricata": {
+            "signatures": ["ET EXPLOIT", "DoublePulsar", "EternalBlue"]
+          }
+        }
+      },
+      {
+        "phase": "Exfiltration",
+        "mitre_id": "T1048",
+        "technique": "Exfiltration Over Alternative Protocol",
+        "expected_indicators": {
+          "zeek": {
+            "service": ["ftp", "dns"],
+            "min_resp_bytes": 1000000
+          },
+          "suricata": {
+            "signatures": ["ET EXFILTRATION", "Sensitive Data"]
+          }
+        }
+      }
+    ]
+  },
+  {
+    "scenario_id": "SCENARIO-2",
+    "name": "Phishing to Ransomware",
+    "steps": [
+      {
+        "phase": "Initial Access",
+        "mitre_id": "T1566",
+        "technique": "Phishing",
+        "expected_indicators": {
+          "zeek": {
+            "service": ["http", "smtp"],
+            "mime_type": ["application/x-dosexec", "application/pdf"]
+          },
+          "suricata": {
+            "signatures": ["ET MALWARE", "Phishing"]
+          }
+        }
+      },
+      {
+        "phase": "Lateral Movement",
+        "mitre_id": "T1021",
+        "technique": "Remote Services",
+        "expected_indicators": {
+          "zeek": {
+            "service": ["rdp", "smb"]
+          },
+          "suricata": {
+            "signatures": ["ET LATERAL", "RDP brute force"]
+          }
+        }
+      },
+      {
+        "phase": "Impact",
+        "mitre_id": "T1486",
+        "technique": "Data Encrypted for Impact (Ransomware)",
+        "expected_indicators": {
+          "zeek": {
+            "conn_state": ["SF"],
+            "service": ["smb"]
+          },
+          "suricata": {
+            "signatures": ["ET RANSOMWARE", "WannaCry", "LockBit"]
+          }
+        }
+      }
+    ]
+  },
+  {
+    "scenario_id": "SCENARIO-3",
+    "name": "Brute Force to SSH Tunnel Data Theft",
+    "steps": [
+      {
+        "phase": "Credential Access",
+        "mitre_id": "T1110",
+        "technique": "Brute Force",
+        "expected_indicators": {
+          "zeek": {
+            "service": ["ssh"],
+            "conn_state": ["SF", "REJ"]
+          },
+          "suricata": {
+            "signatures": ["ET SCAN SSH brute force", "SSH login attempt"]
+          }
+        }
+      },
+      {
+        "phase": "Command and Control",
+        "mitre_id": "T1572",
+        "technique": "Protocol Tunneling",
+        "expected_indicators": {
+          "zeek": {
+            "service": ["ssh"],
+            "min_duration": 3600
+          },
+          "suricata": {
+            "signatures": ["ET POLICY SSH Tunneling Detected"]
+          }
+        }
+      },
+      {
+        "phase": "Exfiltration",
+        "mitre_id": "T1048.002",
+        "technique": "Exfiltration Over Symmetric Encrypted Non-Attribution Channel",
+        "expected_indicators": {
+          "zeek": {
+            "service": ["ssh", "ssl"],
+            "min_orig_bytes": 5000000
+          },
+          "suricata": {
+            "signatures": ["ET EXFILTRATION SSH High Data Volume"]
+          }
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  sentinelchain:
+    build: .
+    container_name: sentinelchain-forensics
+    volumes:
+      # Mount the entire SENTINELCHAIN workspace folder
+      - .:/workspace
+    network_mode: host
+    restart: always

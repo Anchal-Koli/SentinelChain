@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Environment / secrets
+.env
+.env.*
+
+# Runtime logs
+*.log
+
+# Generated capture / forensic artifacts
+capture/*.db
+capture/**/*.db
+capture/dpi_slices/
+capture/suricata_logs/
+
+# Temporary / scratch files
+scratch/
+
+# Python tooling
+.pytest_cache/
+.mypy_cache/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Python cache directories
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+
+# Local causal-correlation test databases
+docs/experiments/*.db
+
+# Large/local datasets
+dataset/**/*.pcap
+dataset/**/*.pcapng
+
+# Generated Suricata evidence
+capture/**/*.json
+
+# Internal project reports
+docs/*.pdf
+docs/*.docx
